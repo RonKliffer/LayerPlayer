@@ -1,37 +1,35 @@
-/**
- * Copyright (c) 2017 Razeware LLC
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * Notwithstanding the foregoing, you may not use, copy, modify, merge, publish,
- * distribute, sublicense, create a derivative work, and/or sell copies of the
- * Software in any work that is designed, intended, or marketed for pedagogical or
- * instructional purposes related to programming, coding, application development,
- * or information technology.  Permission for such use, copying, modification,
- * merger, publication, distribution, sublicensing, creation of derivative works,
- * or sale is expressly withheld.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- */
+/// Copyright (c) 2020 Razeware LLC
+///
+/// Permission is hereby granted, free of charge, to any person obtaining a copy
+/// of this software and associated documentation files (the "Software"), to deal
+/// in the Software without restriction, including without limitation the rights
+/// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+/// copies of the Software, and to permit persons to whom the Software is
+/// furnished to do so, subject to the following conditions:
+///
+/// The above copyright notice and this permission notice shall be included in
+/// all copies or substantial portions of the Software.
+///
+/// Notwithstanding the foregoing, you may not use, copy, modify, merge, publish,
+/// distribute, sublicense, create a derivative work, and/or sell copies of the
+/// Software in any work that is designed, intended, or marketed for pedagogical or
+/// instructional purposes related to programming, coding, application development,
+/// or information technology.  Permission for such use, copying, modification,
+/// merger, publication, distribution, sublicensing, creation of derivative works,
+/// or sale is expressly withheld.
+///
+/// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+/// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+/// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+/// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+/// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+/// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+/// THE SOFTWARE.
+
 import UIKit
 import AVFoundation
 
 class AVPlayerLayerViewController: UIViewController {
-  
   @IBOutlet weak var viewForPlayerLayer: UIView!
   @IBOutlet weak var playButton: UIButton!
   @IBOutlet weak var rateSegmentedControl: UISegmentedControl!
@@ -49,19 +47,7 @@ class AVPlayerLayerViewController: UIViewController {
   var rateBeforePause: Float?
   var shouldLoop = true
   var isPlaying = false
-  
-  // MARK: - Quick reference
-  
-  func setUpPlayerLayer() {
-    playerLayer.frame = viewForPlayerLayer.bounds
-    let url = Bundle.main.url(forResource: "colorfulStreak", withExtension: "m4v")!
-    let player = AVPlayer(url: url)
-    player.actionAtItemEnd = .none
-    playerLayer.player = player
-  }
-  
-  // MARK: - View life cycle
-  
+    
   override func viewDidLoad() {
     super.viewDidLoad()
     setUpPlayerLayer()
@@ -72,9 +58,21 @@ class AVPlayerLayerViewController: UIViewController {
   deinit {
     NotificationCenter.default.removeObserver(self)
   }
-  
-  // MARK: - IBActions
-  
+}
+
+// MARK: - Quick reference
+extension AVPlayerLayerViewController {
+  func setUpPlayerLayer() {
+    playerLayer.frame = viewForPlayerLayer.bounds
+    let url = Bundle.main.url(forResource: "colorfulStreak", withExtension: "m4v")!
+    let player = AVPlayer(url: url)
+    player.actionAtItemEnd = .none
+    playerLayer.player = player
+  }
+}
+ 
+// MARK: - IBActions
+extension AVPlayerLayerViewController {
   @IBAction func playButtonTapped(_ sender: UIButton) {
     play()
   }
@@ -110,9 +108,10 @@ class AVPlayerLayerViewController: UIViewController {
   @IBAction func volumeSliderChanged(_ sender: UISlider) {
     player.volume = sender.value
   }
-  
-  // MARK: - Triggered actions
-  
+}
+
+// MARK: - Triggered actions
+extension AVPlayerLayerViewController {
   func play() {
     if playButton.titleLabel?.text == "Play" {
       if let resumeRate = rateBeforePause {
@@ -134,7 +133,7 @@ class AVPlayerLayerViewController: UIViewController {
   
     @objc func playerDidReachEndNotificationHandler(_ notification: Notification) {
     guard let playerItem = notification.object as? AVPlayerItem else { return }
-    playerItem.seek(to: kCMTimeZero, completionHandler: nil)
+    playerItem.seek(to: CMTime.zero, completionHandler: nil)
     
     if shouldLoop == false {
       player.pause()
@@ -143,32 +142,33 @@ class AVPlayerLayerViewController: UIViewController {
       updateRateSegmentedControl()
     }
   }
-  
-  // MARK: - Helpers
-  
+}
+
+// MARK: - Helpers
+extension AVPlayerLayerViewController {
   func updatePlayButtonTitle() {
     if isPlaying {
-      playButton.setTitle("Pause", for: UIControlState())
+      playButton.setTitle("Pause", for: .normal)
     } else {
-      playButton.setTitle("Play", for: UIControlState())
+      playButton.setTitle("Play", for: .normal)
     }
   }
   
   func updateRateSegmentedControl() {
-    if isPlaying {
-      switch player.rate {
-      case 0.5:
-        rateSegmentedControl.selectedSegmentIndex = Rate.slowForward.rawValue
-      case 1.0:
-        rateSegmentedControl.selectedSegmentIndex = Rate.normal.rawValue
-      case 2.0:
-        rateSegmentedControl.selectedSegmentIndex = Rate.fastForward.rawValue
-      default:
-        break
-      }
-    } else {
-      rateSegmentedControl.selectedSegmentIndex = UISegmentedControlNoSegment
+    guard isPlaying else {
+      rateSegmentedControl.selectedSegmentIndex = UISegmentedControl.noSegment
+      return
+    }
+    
+    switch player.rate {
+    case 0.5:
+      rateSegmentedControl.selectedSegmentIndex = Rate.slowForward.rawValue
+    case 1.0:
+      rateSegmentedControl.selectedSegmentIndex = Rate.normal.rawValue
+    case 2.0:
+      rateSegmentedControl.selectedSegmentIndex = Rate.fastForward.rawValue
+    default:
+      break
     }
   }
-  
 }

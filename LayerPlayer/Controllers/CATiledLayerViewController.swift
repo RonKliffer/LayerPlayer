@@ -1,37 +1,34 @@
-/**
- * Copyright (c) 2017 Razeware LLC
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * Notwithstanding the foregoing, you may not use, copy, modify, merge, publish,
- * distribute, sublicense, create a derivative work, and/or sell copies of the
- * Software in any work that is designed, intended, or marketed for pedagogical or
- * instructional purposes related to programming, coding, application development,
- * or information technology.  Permission for such use, copying, modification,
- * merger, publication, distribution, sublicensing, creation of derivative works,
- * or sale is expressly withheld.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- */
+/// Copyright (c) 2020 Razeware LLC
+///
+/// Permission is hereby granted, free of charge, to any person obtaining a copy
+/// of this software and associated documentation files (the "Software"), to deal
+/// in the Software without restriction, including without limitation the rights
+/// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+/// copies of the Software, and to permit persons to whom the Software is
+/// furnished to do so, subject to the following conditions:
+///
+/// The above copyright notice and this permission notice shall be included in
+/// all copies or substantial portions of the Software.
+///
+/// Notwithstanding the foregoing, you may not use, copy, modify, merge, publish,
+/// distribute, sublicense, create a derivative work, and/or sell copies of the
+/// Software in any work that is designed, intended, or marketed for pedagogical or
+/// instructional purposes related to programming, coding, application development,
+/// or information technology.  Permission for such use, copying, modification,
+/// merger, publication, distribution, sublicensing, creation of derivative works,
+/// or sale is expressly withheld.
+///
+/// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+/// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+/// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+/// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+/// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+/// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+/// THE SOFTWARE.
 
 import UIKit
 
-class CATiledLayerViewController: UIViewController, UIScrollViewDelegate {
-  
+class CATiledLayerViewController: UIViewController {
   @IBOutlet weak var tiledImageLayerButton: UIBarButtonItem!
   @IBOutlet weak var zoomLabel: UILabel!
   @IBOutlet weak var scrollView: UIScrollView!
@@ -50,9 +47,7 @@ class CATiledLayerViewController: UIViewController, UIScrollViewDelegate {
   var tiledLayer: TiledLayer {
     return viewForTiledLayer.layer as! TiledLayer
   }
-  
-  // MARK: - View life cycle
-  
+    
   override func viewDidLoad() {
     super.viewDidLoad()
     setUpTileImageLayerButton()
@@ -67,9 +62,10 @@ class CATiledLayerViewController: UIViewController, UIScrollViewDelegate {
   deinit {
     TiledLayer.setFadeDuration(CFTimeInterval(0.25))
   }
-  
-  // MARK: - IBActions
-    
+}
+
+// MARK: - IBActions
+extension CATiledLayerViewController {
   @IBAction func fadeDurationSliderChanged(_ sender: UISlider) {
     TiledLayer.setFadeDuration(CFTimeInterval(sender.value))
     updateFadeDurationSliderValueLabel()
@@ -117,11 +113,12 @@ class CATiledLayerViewController: UIViewController, UIScrollViewDelegate {
     scrollView.zoomScale = CGFloat(sender.value)
     updateZoomScaleSliderValueLabel()
   }
-  
-  // MARK: - Helpers
-  
+}
+
+// MARK: - Helpers
+extension CATiledLayerViewController {
   func setUpTileImageLayerButton() {
-    tiledImageLayerButton.setTitleTextAttributes([NSAttributedStringKey.font: UIFont(name: "LayerPlayer", size: 23.0)!], for: UIControlState())
+    tiledImageLayerButton.setTitleTextAttributes([NSAttributedString.Key.font: UIFont(name: "LayerPlayer", size: 23.0)!], for: .normal)
   }
   
   func updateFadeDurationSliderValueLabel() {
@@ -143,9 +140,10 @@ class CATiledLayerViewController: UIViewController, UIScrollViewDelegate {
   func updateZoomScaleSliderValueLabel() {
     zoomScaleSliderValueLabel.text = "\(Int(scrollView.zoomScale))"
   }
-  
-  // MARK: UIScrollViewDelegate
-  
+}
+
+// MARK: UIScrollViewDelegate
+extension CATiledLayerViewController: UIScrollViewDelegate {
   func viewForZooming(in scrollView: UIScrollView) -> UIView? {
     return viewForTiledLayer
   }

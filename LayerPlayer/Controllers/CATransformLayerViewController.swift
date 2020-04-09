@@ -1,32 +1,30 @@
-/**
- * Copyright (c) 2017 Razeware LLC
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * Notwithstanding the foregoing, you may not use, copy, modify, merge, publish,
- * distribute, sublicense, create a derivative work, and/or sell copies of the
- * Software in any work that is designed, intended, or marketed for pedagogical or
- * instructional purposes related to programming, coding, application development,
- * or information technology.  Permission for such use, copying, modification,
- * merger, publication, distribution, sublicensing, creation of derivative works,
- * or sale is expressly withheld.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- */
+/// Copyright (c) 2020 Razeware LLC
+///
+/// Permission is hereby granted, free of charge, to any person obtaining a copy
+/// of this software and associated documentation files (the "Software"), to deal
+/// in the Software without restriction, including without limitation the rights
+/// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+/// copies of the Software, and to permit persons to whom the Software is
+/// furnished to do so, subject to the following conditions:
+///
+/// The above copyright notice and this permission notice shall be included in
+/// all copies or substantial portions of the Software.
+///
+/// Notwithstanding the foregoing, you may not use, copy, modify, merge, publish,
+/// distribute, sublicense, create a derivative work, and/or sell copies of the
+/// Software in any work that is designed, intended, or marketed for pedagogical or
+/// instructional purposes related to programming, coding, application development,
+/// or information technology.  Permission for such use, copying, modification,
+/// merger, publication, distribution, sublicensing, creation of derivative works,
+/// or sale is expressly withheld.
+///
+/// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+/// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+/// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+/// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+/// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+/// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+/// THE SOFTWARE.
 
 import UIKit
 
@@ -39,7 +37,6 @@ func radiansToDegrees(_ radians: Double) -> CGFloat {
 }
 
 class CATransformLayerViewController: UIViewController {
-  
   @IBOutlet weak var boxTappedLabel: UILabel!
   @IBOutlet weak var viewForTransformLayer: UIView!
   @IBOutlet var colorAlphaSwitches: [UISwitch]!
@@ -60,8 +57,16 @@ class CATransformLayerViewController: UIViewController {
   var purpleColor = UIColor.purple
   var trackBall: TrackBall?
   
-  // MARK: - Quick reference
-  
+  override func viewDidLoad() {
+    super.viewDidLoad()
+    sortOutletCollections()
+    setUpSwipeMeTextLayer()
+    buildCube()
+  }
+}
+
+// MARK: - Quick reference
+extension CATransformLayerViewController {
   func sortOutletCollections() {
     colorAlphaSwitches.sortUIViewsInPlaceByTag()
   }
@@ -69,25 +74,17 @@ class CATransformLayerViewController: UIViewController {
   func setUpSwipeMeTextLayer() {
     swipeMeTextLayer.frame = CGRect(x: 0.0, y: sideLength / 4.0, width: sideLength, height: sideLength / 2.0)
     swipeMeTextLayer.string = "Swipe Me"
-    swipeMeTextLayer.alignmentMode = kCAAlignmentCenter
+    swipeMeTextLayer.alignmentMode = CATextLayerAlignmentMode.center
     swipeMeTextLayer.foregroundColor = UIColor.white.cgColor
     let fontName = "Noteworthy-Light" as CFString
     let fontRef = CTFontCreateWithName(fontName, 24.0, nil)
     swipeMeTextLayer.font = fontRef
     swipeMeTextLayer.contentsScale = UIScreen.main.scale
   }
-  
-  // MARK: - View life cycle
-  
-  override func viewDidLoad() {
-    super.viewDidLoad()
-    sortOutletCollections()
-    setUpSwipeMeTextLayer()
-    buildCube()
-  }
-  
-  // MARK: - IBActions
-  
+}
+ 
+// MARK: - IBActions
+extension CATransformLayerViewController {
   @IBAction func colorAlphaSwitchChanged(_ sender: UISwitch) {
     let alpha = sender.isOn ? reducedAlpha : 1.0
     
@@ -111,9 +108,10 @@ class CATransformLayerViewController: UIViewController {
     transformLayer.removeFromSuperlayer()
     buildCube()
   }
+}
   
-  // MARK: - Triggered actions
-  
+// MARK: - Triggered actions
+extension CATransformLayerViewController {
   override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
     if let location = touches.first?.location(in: viewForTransformLayer) {
       if trackBall != nil {
@@ -156,39 +154,40 @@ class CATransformLayerViewController: UIViewController {
         self.boxTappedLabel.isHidden = true
     })
   }
+}
   
-  // MARK: - Helpers
-  
+// MARK: - Helpers
+extension CATransformLayerViewController {
   func buildCube() {
     transformLayer = CATransformLayer()
     
-    var layer = sideLayerWithColor(redColor)
+    var layer = sideLayer(color: redColor)
     layer.addSublayer(swipeMeTextLayer)
     transformLayer.addSublayer(layer)
     
-    layer = sideLayerWithColor(orangeColor)
+    layer = sideLayer(color: orangeColor)
     var transform = CATransform3DMakeTranslation(sideLength / 2.0, 0.0, sideLength / -2.0)
     transform = CATransform3DRotate(transform, degreesToRadians(90.0), 0.0, 1.0, 0.0)
     layer.transform = transform
     transformLayer.addSublayer(layer)
     
-    layer = sideLayerWithColor(yellowColor)
+    layer = sideLayer(color: yellowColor)
     layer.transform = CATransform3DMakeTranslation(0.0, 0.0, -sideLength)
     transformLayer.addSublayer(layer)
     
-    layer = sideLayerWithColor(greenColor)
+    layer = sideLayer(color: greenColor)
     transform = CATransform3DMakeTranslation(sideLength / -2.0, 0.0, sideLength / -2.0)
     transform = CATransform3DRotate(transform, degreesToRadians(90.0), 0.0, 1.0, 0.0)
     layer.transform = transform
     transformLayer.addSublayer(layer)
     
-    layer = sideLayerWithColor(blueColor)
+    layer = sideLayer(color: blueColor)
     transform = CATransform3DMakeTranslation(0.0, sideLength / -2.0, sideLength / -2.0)
     transform = CATransform3DRotate(transform, degreesToRadians(90.0), 1.0, 0.0, 0.0)
     layer.transform = transform
     transformLayer.addSublayer(layer)
     
-    layer = sideLayerWithColor(purpleColor)
+    layer = sideLayer(color: purpleColor)
     transform = CATransform3DMakeTranslation(0.0, sideLength / 2.0, sideLength / -2.0)
     transform = CATransform3DRotate(transform, degreesToRadians(90.0), 1.0, 0.0, 0.0)
     layer.transform = transform
@@ -198,7 +197,7 @@ class CATransformLayerViewController: UIViewController {
     viewForTransformLayer.layer.addSublayer(transformLayer)
   }
   
-  func sideLayerWithColor(_ color: UIColor) -> CALayer {
+  func sideLayer(color: UIColor) -> CALayer {
     let layer = CALayer()
     layer.frame = CGRect(origin: CGPoint.zero, size: CGSize(width: sideLength, height: sideLength))
     layer.position = CGPoint(x: viewForTransformLayer.bounds.midX, y: viewForTransformLayer.bounds.midY)

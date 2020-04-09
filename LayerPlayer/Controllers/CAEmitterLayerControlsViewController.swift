@@ -1,37 +1,34 @@
-/**
- * Copyright (c) 2017 Razeware LLC
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * Notwithstanding the foregoing, you may not use, copy, modify, merge, publish,
- * distribute, sublicense, create a derivative work, and/or sell copies of the
- * Software in any work that is designed, intended, or marketed for pedagogical or
- * instructional purposes related to programming, coding, application development,
- * or information technology.  Permission for such use, copying, modification,
- * merger, publication, distribution, sublicensing, creation of derivative works,
- * or sale is expressly withheld.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- */
+/// Copyright (c) 2020 Razeware LLC
+///
+/// Permission is hereby granted, free of charge, to any person obtaining a copy
+/// of this software and associated documentation files (the "Software"), to deal
+/// in the Software without restriction, including without limitation the rights
+/// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+/// copies of the Software, and to permit persons to whom the Software is
+/// furnished to do so, subject to the following conditions:
+///
+/// The above copyright notice and this permission notice shall be included in
+/// all copies or substantial portions of the Software.
+///
+/// Notwithstanding the foregoing, you may not use, copy, modify, merge, publish,
+/// distribute, sublicense, create a derivative work, and/or sell copies of the
+/// Software in any work that is designed, intended, or marketed for pedagogical or
+/// instructional purposes related to programming, coding, application development,
+/// or information technology.  Permission for such use, copying, modification,
+/// merger, publication, distribution, sublicensing, creation of derivative works,
+/// or sale is expressly withheld.
+///
+/// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+/// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+/// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+/// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+/// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+/// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+/// THE SOFTWARE.
 
 import UIKit
 
-class CAEmitterLayerControlsViewController: UITableViewController, UIPickerViewDataSource, UIPickerViewDelegate {
-  
+class CAEmitterLayerControlsViewController: UITableViewController {
   @IBOutlet weak var renderModePickerValueLabel: UILabel!
   @IBOutlet weak var renderModePicker: UIPickerView!
   @IBOutlet var sliderValueLabels: [UILabel]!
@@ -52,19 +49,18 @@ class CAEmitterLayerControlsViewController: UITableViewController, UIPickerViewD
   var emitterCell: CAEmitterCell {
     return emitterLayerViewController.emitterCell
   }
-  var emitterLayerRenderModes = [kCAEmitterLayerUnordered, kCAEmitterLayerOldestFirst, kCAEmitterLayerOldestLast, kCAEmitterLayerBackToFront, kCAEmitterLayerAdditive] as NSArray
+  let emitterLayerRenderModes: [CAEmitterLayerRenderMode] = [.unordered, .oldestFirst, .oldestLast, .backToFront, .additive]
   var renderModePickerVisible = false
-  
-  // MARK: - View life cycle
-  
+    
   override func viewDidLoad() {
     super.viewDidLoad()
     updateRenderModePickerValueLabel()
     updateSliderValueLabels()
   }
-  
-  // MARK: - IBActions
-  
+}
+
+// MARK: - IBActions
+extension CAEmitterLayerControlsViewController {
   @IBAction func enabledSwitchChanged(_ sender: UISwitch) {
     emitterLayerViewController.emitterCell.isEnabled = sender.isOn
     emitterLayerViewController.resetEmitterCells()
@@ -112,13 +108,14 @@ class CAEmitterLayerControlsViewController: UITableViewController, UIPickerViewD
     
     updateSliderValueLabel(slider)
   }
+}
   
-  // MARK: - Triggered actions
-  
+// MARK: - Triggered actions
+extension CAEmitterLayerControlsViewController {
   func showEmitterLayerRenderModePicker() {
     renderModePickerVisible = true
     relayoutTableViewCells()
-    let index = emitterLayerRenderModes.index(of: emitterLayer.renderMode)
+    let index = emitterLayerRenderModes.firstIndex(of: emitterLayer.renderMode) ?? 0
     renderModePicker.selectRow(index, inComponent: 0, animated: false)
     renderModePicker.isHidden = false
     renderModePicker.alpha = 0.0
@@ -131,25 +128,26 @@ class CAEmitterLayerControlsViewController: UITableViewController, UIPickerViewD
   
   func hideEmitterLayerRenderModePicker() {
     if renderModePickerVisible {
-      UIApplication.shared.beginIgnoringInteractionEvents()
+      view.isUserInteractionEnabled = false
       renderModePickerVisible = false
       relayoutTableViewCells()
       
       UIView.animate(withDuration: 0.25, animations: {
         [unowned self] in
         self.renderModePicker.alpha = 0.0
-      }, completion: {
-        [unowned self] _ in
-        self.renderModePicker.isHidden = true
-        UIApplication.shared.endIgnoringInteractionEvents()
+        }, completion: {
+          [unowned self] _ in
+          self.renderModePicker.isHidden = true
+          self.view.isUserInteractionEnabled = true
       })
     }
   }
-  
-  // MARK: - Helpers
-  
+}
+
+// MARK: - Helpers
+extension CAEmitterLayerControlsViewController {
   func updateRenderModePickerValueLabel() {
-    renderModePickerValueLabel.text = emitterLayer.renderMode
+    renderModePickerValueLabel.text = emitterLayer.renderMode.rawValue
   }
   
   func updateSliderValueLabels() {
@@ -181,9 +179,10 @@ class CAEmitterLayerControlsViewController: UITableViewController, UIPickerViewD
     tableView.beginUpdates()
     tableView.endUpdates()
   }
-  
-  // MARK: - UITableViewDelegate
-  
+}
+
+// MARK: - UITableViewDelegate
+extension CAEmitterLayerControlsViewController {
   override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
     let section = Section(rawValue: indexPath.section)!
     
@@ -204,9 +203,10 @@ class CAEmitterLayerControlsViewController: UITableViewController, UIPickerViewD
       hideEmitterLayerRenderModePicker()
     }
   }
-  
-  // MARK: - UIPickerViewDataSource
-  
+}
+
+// MARK: - UIPickerViewDataSource
+extension CAEmitterLayerControlsViewController: UIPickerViewDataSource {
   func numberOfComponents(in pickerView: UIPickerView) -> Int {
     return 1
   }
@@ -214,16 +214,16 @@ class CAEmitterLayerControlsViewController: UITableViewController, UIPickerViewD
   func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
     return emitterLayerRenderModes.count
   }
-  
-  // MARK: - UIPickerViewDelegate
-  
+}
+ 
+// MARK: - UIPickerViewDelegate
+extension CAEmitterLayerControlsViewController: UIPickerViewDelegate {
   func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-    return emitterLayerRenderModes[row] as? String
+    return emitterLayerRenderModes[row].rawValue
   }
   
   func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-    emitterLayerViewController.emitterLayer.renderMode = emitterLayerRenderModes[row] as! String
+    emitterLayerViewController.emitterLayer.renderMode = emitterLayerRenderModes[row]
     updateRenderModePickerValueLabel()
   }
-  
 }

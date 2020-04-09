@@ -1,37 +1,34 @@
-/**
- * Copyright (c) 2017 Razeware LLC
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * Notwithstanding the foregoing, you may not use, copy, modify, merge, publish,
- * distribute, sublicense, create a derivative work, and/or sell copies of the
- * Software in any work that is designed, intended, or marketed for pedagogical or
- * instructional purposes related to programming, coding, application development,
- * or information technology.  Permission for such use, copying, modification,
- * merger, publication, distribution, sublicensing, creation of derivative works,
- * or sale is expressly withheld.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- */
+/// Copyright (c) 2020 Razeware LLC
+///
+/// Permission is hereby granted, free of charge, to any person obtaining a copy
+/// of this software and associated documentation files (the "Software"), to deal
+/// in the Software without restriction, including without limitation the rights
+/// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+/// copies of the Software, and to permit persons to whom the Software is
+/// furnished to do so, subject to the following conditions:
+///
+/// The above copyright notice and this permission notice shall be included in
+/// all copies or substantial portions of the Software.
+///
+/// Notwithstanding the foregoing, you may not use, copy, modify, merge, publish,
+/// distribute, sublicense, create a derivative work, and/or sell copies of the
+/// Software in any work that is designed, intended, or marketed for pedagogical or
+/// instructional purposes related to programming, coding, application development,
+/// or information technology.  Permission for such use, copying, modification,
+/// merger, publication, distribution, sublicensing, creation of derivative works,
+/// or sale is expressly withheld.
+///
+/// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+/// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+/// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+/// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+/// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+/// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+/// THE SOFTWARE.
 
 import UIKit
 
-class CALayerControlsViewController: UITableViewController, UIPickerViewDataSource, UIPickerViewDelegate {
-  
+class CALayerControlsViewController: UITableViewController {
   @IBOutlet weak var contentsGravityPickerValueLabel: UILabel!
   @IBOutlet weak var contentsGravityPicker: UIPickerView!
   @IBOutlet var switches: [UISwitch]!
@@ -64,18 +61,18 @@ class CALayerControlsViewController: UITableViewController, UIPickerViewDataSour
   }
   
   weak var layerViewController: CALayerViewController!
-  var contentsGravityValues = [kCAGravityCenter, kCAGravityTop, kCAGravityBottom, kCAGravityLeft, kCAGravityRight, kCAGravityTopLeft, kCAGravityTopRight, kCAGravityBottomLeft, kCAGravityBottomRight, kCAGravityResize, kCAGravityResizeAspect, kCAGravityResizeAspectFill] as NSArray
+  let contentsGravityValues: [CALayerContentsGravity] = [.center, .top, .bottom, .left, .right, .topLeft, .topRight,
+                                                         .bottomLeft, .bottomRight, .resize, .resizeAspect, .resizeAspectFill]
   var contentsGravityPickerVisible = false
-  
-  // MARK: - View life cycle
   
   override func viewDidLoad() {
     super.viewDidLoad()
     updateSliderValueLabels()
   }
-  
-  // MARK: - IBActions
-  
+}
+ 
+// MARK: - IBActions
+extension CALayerControlsViewController {
   @IBAction func switchChanged(_ sender: UISwitch) {
     let switchesArray = switches as NSArray
     let theSwitch = Switch(rawValue: switchesArray.index(of: sender))!
@@ -111,15 +108,15 @@ class CALayerControlsViewController: UITableViewController, UIPickerViewDataSour
   }
   
   @IBAction func borderColorSliderChanged(_ sender: UISlider) {
-    let colorAndLabel = colorAndLabelForSliders(borderColorSliders)
-    layerViewController.layer.borderColor = colorAndLabel.color
-    borderColorSlidersValueLabel.text = colorAndLabel.label
+    let colorLabel = colorAndLabel(forSliders: borderColorSliders)
+    layerViewController.layer.borderColor = colorLabel.color
+    borderColorSlidersValueLabel.text = colorLabel.label
   }
 
   @IBAction func backgroundColorSliderChanged(_ sender: UISlider) {
-    let colorAndLabel = colorAndLabelForSliders(backgroundColorSliders)
-    layerViewController.layer.backgroundColor = colorAndLabel.color
-    backgroundColorSlidersValueLabel.text = colorAndLabel.label
+    let colorLabel = colorAndLabel(forSliders: backgroundColorSliders)
+    layerViewController.layer.backgroundColor = colorLabel.color
+    backgroundColorSlidersValueLabel.text = colorLabel.label
   }
   
   @IBAction func shadowOffsetSliderChanged(_ sender: UISlider) {
@@ -130,33 +127,34 @@ class CALayerControlsViewController: UITableViewController, UIPickerViewDataSour
   }
   
   @IBAction func shadowColorSliderChanged(_ sender: UISlider) {
-    let colorAndLabel = colorAndLabelForSliders(shadowColorSliders)
-    layerViewController.layer.shadowColor = colorAndLabel.color
-    shadowColorSlidersValueLabel.text = colorAndLabel.label
+    let colorLabel = colorAndLabel(forSliders: shadowColorSliders)
+    layerViewController.layer.shadowColor = colorLabel.color
+    shadowColorSlidersValueLabel.text = colorLabel.label
   }
   
   @IBAction func magnificationFilterSegmentedControlChanged(_ sender: UISegmentedControl) {
     let filter = MagnificationFilter(rawValue: sender.selectedSegmentIndex)!
-    var filterValue = ""
+    let filterValue: CALayerContentsFilter
     
     switch filter {
     case .linear:
-      filterValue = kCAFilterLinear
+      filterValue = .linear
     case .nearest:
-      filterValue = kCAFilterNearest
+      filterValue = .nearest
     case .trilinear:
-      filterValue = kCAFilterTrilinear
+      filterValue = .trilinear
     }
     
     layerViewController.layer.magnificationFilter = filterValue
   }
-  
-  // MARK: - Triggered actions
-  
+}
+
+// MARK: - Triggered actions
+extension CALayerControlsViewController {
   func showContentsGravityPicker() {
     contentsGravityPickerVisible = true
     relayoutTableViewCells()
-    let index = contentsGravityValues.index(of: layerViewController.layer.contentsGravity)
+    let index = contentsGravityValues.firstIndex(of: layerViewController.layer.contentsGravity) ?? 0
     contentsGravityPicker.selectRow(index, inComponent: 0, animated: false)
     contentsGravityPicker.isHidden = false
     contentsGravityPicker.alpha = 0.0
@@ -183,11 +181,12 @@ class CALayerControlsViewController: UITableViewController, UIPickerViewDataSour
       })
     }
   }
-  
-  // MARK: - Helpers
-  
+}
+
+// MARK: - Helpers
+extension CALayerControlsViewController {
   func updateContentsGravityPickerValueLabel() {
-    contentsGravityPickerValueLabel.text = layerViewController.layer.contentsGravity
+    contentsGravityPickerValueLabel.text = layerViewController.layer.contentsGravity.rawValue
   }
   
   func updateSliderValueLabels() {
@@ -209,7 +208,7 @@ class CALayerControlsViewController: UITableViewController, UIPickerViewDataSour
     }
   }
   
-  func colorAndLabelForSliders(_ sliders: [UISlider]) -> (color: CGColor, label: String) {
+  func colorAndLabel(forSliders sliders: [UISlider]) -> (color: CGColor, label: String) {
     let red = CGFloat(sliders[0].value)
     let green = CGFloat(sliders[1].value)
     let blue = CGFloat(sliders[2].value)
@@ -222,9 +221,10 @@ class CALayerControlsViewController: UITableViewController, UIPickerViewDataSour
     tableView.beginUpdates()
     tableView.endUpdates()
   }
-  
-  // MARK: - UITableViewDelegate
-  
+}
+
+// MARK: - UITableViewDelegate
+extension CALayerControlsViewController {
   override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
     let row = Row(rawValue: indexPath.row)!
     
@@ -245,9 +245,10 @@ class CALayerControlsViewController: UITableViewController, UIPickerViewDataSour
       hideContentsGravityPicker()
     }
   }
-  
-  // MARK: - UIPickerViewDataSource
-  
+}
+
+// MARK: - UIPickerViewDataSource
+extension CALayerControlsViewController: UIPickerViewDataSource {
   func numberOfComponents(in pickerView: UIPickerView) -> Int {
     return 1
   }
@@ -255,16 +256,16 @@ class CALayerControlsViewController: UITableViewController, UIPickerViewDataSour
   func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
     return contentsGravityValues.count
   }
-  
-  // MARK: - UIPickerViewDelegate
-  
+}
+
+// MARK: - UIPickerViewDelegate
+extension CALayerControlsViewController: UIPickerViewDelegate {
   func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-    return contentsGravityValues[row] as? String
+    return contentsGravityValues[row].rawValue
   }
   
   func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-    layerViewController.layer.contentsGravity = contentsGravityValues[row] as! String
+    layerViewController.layer.contentsGravity = CALayerContentsGravity(rawValue: contentsGravityValues[row].rawValue)
     updateContentsGravityPickerValueLabel()
   }
-
 }

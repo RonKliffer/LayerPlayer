@@ -1,39 +1,34 @@
-/**
- * Copyright (c) 2017 Razeware LLC
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * Notwithstanding the foregoing, you may not use, copy, modify, merge, publish,
- * distribute, sublicense, create a derivative work, and/or sell copies of the
- * Software in any work that is designed, intended, or marketed for pedagogical or
- * instructional purposes related to programming, coding, application development,
- * or information technology.  Permission for such use, copying, modification,
- * merger, publication, distribution, sublicensing, creation of derivative works,
- * or sale is expressly withheld.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- */
+/// Copyright (c) 2020 Razeware LLC
+///
+/// Permission is hereby granted, free of charge, to any person obtaining a copy
+/// of this software and associated documentation files (the "Software"), to deal
+/// in the Software without restriction, including without limitation the rights
+/// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+/// copies of the Software, and to permit persons to whom the Software is
+/// furnished to do so, subject to the following conditions:
+///
+/// The above copyright notice and this permission notice shall be included in
+/// all copies or substantial portions of the Software.
+///
+/// Notwithstanding the foregoing, you may not use, copy, modify, merge, publish,
+/// distribute, sublicense, create a derivative work, and/or sell copies of the
+/// Software in any work that is designed, intended, or marketed for pedagogical or
+/// instructional purposes related to programming, coding, application development,
+/// or information technology.  Permission for such use, copying, modification,
+/// merger, publication, distribution, sublicensing, creation of derivative works,
+/// or sale is expressly withheld.
+///
+/// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+/// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+/// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+/// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+/// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+/// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+/// THE SOFTWARE.
 
 import UIKit
 
 class CAReplicatorLayerViewController: UIViewController {
-  
-  // FIXME: Unsatisfiable constraints in compact width, any height (e.g., iPhone in landscape)
-  
   @IBOutlet weak var viewForReplicatorLayer: UIView!
   @IBOutlet weak var layerSizeSlider: UISlider!
   @IBOutlet weak var layerSizeSliderValueLabel: UILabel!
@@ -52,8 +47,28 @@ class CAReplicatorLayerViewController: UIViewController {
   let instanceLayer = CALayer()
   let fadeAnimation = CABasicAnimation(keyPath: "opacity")
   
-  // MARK: - Quick reference
+  override func viewDidLoad() {
+    super.viewDidLoad()
+    setUpReplicatorLayer()
+    viewForReplicatorLayer.layer.addSublayer(replicatorLayer)
+    setUpInstanceLayer()
+    replicatorLayer.addSublayer(instanceLayer)
+    setUpLayerFadeAnimation()
+    instanceDelaySliderChanged(instanceDelaySlider)
+    updateLayerSizeSliderValueLabel()
+    updateInstanceCountSliderValueLabel()
+    updateInstanceDelaySliderValueLabel()
+  }
   
+  override func viewDidLayoutSubviews() {
+    super.viewDidLayoutSubviews()
+    setUpReplicatorLayer()
+    setUpInstanceLayer()
+  }
+}
+
+// MARK: - Quick reference
+extension CAReplicatorLayerViewController {
   func setUpReplicatorLayer() {
     replicatorLayer.frame = viewForReplicatorLayer.bounds
     let count = instanceCountSlider.value
@@ -80,30 +95,10 @@ class CAReplicatorLayerViewController: UIViewController {
     fadeAnimation.toValue = 0.0
     fadeAnimation.repeatCount = Float(Int.max)
   }
+}
   
-  // MARK: - View life cycle
-  
-  override func viewDidLoad() {
-    super.viewDidLoad()
-    setUpReplicatorLayer()
-    viewForReplicatorLayer.layer.addSublayer(replicatorLayer)
-    setUpInstanceLayer()
-    replicatorLayer.addSublayer(instanceLayer)
-    setUpLayerFadeAnimation()
-    instanceDelaySliderChanged(instanceDelaySlider)
-    updateLayerSizeSliderValueLabel()
-    updateInstanceCountSliderValueLabel()
-    updateInstanceDelaySliderValueLabel()
-  }
-  
-  override func viewDidLayoutSubviews() {
-    super.viewDidLayoutSubviews()
-    setUpReplicatorLayer()
-    setUpInstanceLayer()
-  }
-  
-  // MARK: - IBActions
-  
+// MARK: - IBActions
+extension CAReplicatorLayerViewController {
   @IBAction func layerSizeSliderChanged(_ sender: UISlider) {
     let value = CGFloat(sender.value)
     instanceLayer.bounds = CGRect(origin: CGPoint.zero, size: CGSize(width: value, height: value * lengthMultiplier))
@@ -143,17 +138,19 @@ class CAReplicatorLayerViewController: UIViewController {
       break
     }
   }
-  
-  // MARK: - Triggered actions
-  
+}
+
+// MARK: - Triggered actions
+extension CAReplicatorLayerViewController {
   func setLayerFadeAnimation() {
     instanceLayer.opacity = 0.0
     fadeAnimation.duration = CFTimeInterval(instanceDelaySlider.value)
     instanceLayer.add(fadeAnimation, forKey: "FadeAnimation")
   }
-  
-  // MARK: - Helpers
-  
+}
+
+// MARK: - Helpers
+extension CAReplicatorLayerViewController {
   func offsetValueForSwitch(_ offsetSwitch: UISwitch) -> Float {
     if offsetSwitch == offsetAlphaSwitch {
       let count = Float(replicatorLayer.instanceCount)
@@ -175,5 +172,4 @@ class CAReplicatorLayerViewController: UIViewController {
   func updateInstanceDelaySliderValueLabel() {
     instanceDelaySliderValueLabel.text = String(format: "%.0f", instanceDelaySlider.value)
   }
-  
 }
