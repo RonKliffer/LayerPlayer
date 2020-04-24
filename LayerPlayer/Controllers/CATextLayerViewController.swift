@@ -50,10 +50,9 @@ class CATextLayerViewController: UIViewController {
   private enum Constants {
     static let baseFontSize: CGFloat = 24.0
   }
-  let noteworthyLightFont: AnyObject? = CTFontCreateWithName("Noteworthy-Light" as CFString, Constants.baseFontSize, nil)
-  let helveticaFont: AnyObject? = CTFontCreateWithName("Helvetica" as CFString, Constants.baseFontSize, nil)
+  let noteworthyLightFont = CTFontCreateWithName("Noteworthy-Light" as CFString, Constants.baseFontSize, nil)
+  let helveticaFont = CTFontCreateWithName("Helvetica" as CFString, Constants.baseFontSize, nil)
   let textLayer = CATextLayer()
-  var fontSize: CGFloat = Constants.baseFontSize
   var previouslySelectedTruncationMode = TruncationMode.end
     
   override func viewDidLoad() {
@@ -65,19 +64,17 @@ class CATextLayerViewController: UIViewController {
   override func viewDidLayoutSubviews() {
     super.viewDidLayoutSubviews()
     textLayer.frame = viewForTextLayer.bounds
-    textLayer.fontSize = fontSize
   }
 }
 
-// MARK: - Quick reference
+// MARK: - Layer setup
 extension CATextLayerViewController {
   func setUpTextLayer() {
     textLayer.frame = viewForTextLayer.bounds
-    var string = ""
-    
-    for _ in 1...20 {
-      string += "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce auctor arcu quis velit congue dictum. "
-    }
+
+    let string = (1...20)
+      .map { _ in "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce auctor arcu quis velit congue dictum."}
+      .joined(separator: " ")
     
     textLayer.string = string
     textLayer.font = helveticaFont
@@ -85,6 +82,7 @@ extension CATextLayerViewController {
     textLayer.isWrapped = true
     textLayer.alignmentMode = .left
     textLayer.truncationMode = .end
+    textLayer.fontSize = Constants.baseFontSize
     textLayer.contentsScale = UIScreen.main.scale
   }
 }
@@ -104,7 +102,7 @@ extension CATextLayerViewController {
   
   @IBAction func fontSizeSliderChanged(_ sender: UISlider) {
     fontSizeSliderValueLabel.text = "\(Int(sender.value * 100.0))%"
-    fontSize = Constants.baseFontSize * CGFloat(sender.value)
+    textLayer.fontSize = Constants.baseFontSize * CGFloat(sender.value)
   }
   
   @IBAction func wrapTextSwitchChanged(_ sender: UISwitch) {
