@@ -37,32 +37,18 @@ class CAEmitterLayerViewController: UIViewController {
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
     setUpEmitterCell()
-    resetEmitterCells()
     setUpEmitterLayer()
-    viewForEmitterLayer.layer.addSublayer(emitterLayer)
   }
   
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-    if let identifier = segue.identifier {
-      switch identifier {
-      case "DisplayEmitterControls":
-        emitterLayer.renderMode = .additive
-        (segue.destination as? CAEmitterLayerControlsViewController)?.emitterLayerViewController = self
-      default:
-        break
-      }
+    if segue.identifier == "DisplayEmitterControls" {
+      (segue.destination as? CAEmitterLayerControlsViewController)?.emitterLayerViewController = self
     }
   }
 }
 
-// MARK: - Quick reference
+// MARK: - Layer setup
 extension CAEmitterLayerViewController {
-  func setUpEmitterLayer() {
-    emitterLayer.frame = viewForEmitterLayer.bounds
-    emitterLayer.seed = UInt32(Date().timeIntervalSince1970)
-    emitterLayer.emitterPosition = CGPoint(x: viewForEmitterLayer.bounds.midX * 1.5, y: viewForEmitterLayer.bounds.midY)
-  }
-  
   func setUpEmitterCell() {
     emitterCell.isEnabled = true
     emitterCell.contents = UIImage(named: "smallStar")?.cgImage
@@ -95,6 +81,20 @@ extension CAEmitterLayerViewController {
     emitterCell.xAcceleration = -750.0
     emitterCell.yAcceleration = 0.0
   }
+  
+  func setUpEmitterLayer() {
+    resetEmitterCells()
+    emitterLayer.frame = viewForEmitterLayer.bounds
+    emitterLayer.seed = UInt32(Date().timeIntervalSince1970)
+    emitterLayer.emitterPosition = CGPoint(x: viewForEmitterLayer.bounds.midX * 1.5, y: viewForEmitterLayer.bounds.midY)
+    emitterLayer.renderMode = .additive
+    viewForEmitterLayer.layer.addSublayer(emitterLayer)
+  }
+  
+  func resetEmitterCells() {
+    emitterLayer.emitterCells = nil
+    emitterLayer.emitterCells = [emitterCell]
+  }
 }
 
 // MARK: - Triggered actions
@@ -109,10 +109,5 @@ extension CAEmitterLayerViewController {
     if let location = touches.first?.location(in: viewForEmitterLayer) {
       emitterLayer.emitterPosition = location
     }
-  }
-  
-  func resetEmitterCells() {
-    emitterLayer.emitterCells = nil
-    emitterLayer.emitterCells = [emitterCell]
   }
 }

@@ -120,10 +120,9 @@ extension CAEmitterLayerControlsViewController {
     renderModePicker.isHidden = false
     renderModePicker.alpha = 0.0
     
-    UIView.animate(withDuration: 0.25, animations: {
-      [unowned self] in
+    UIView.animate(withDuration: 0.25) {
       self.renderModePicker.alpha = 1.0
-    })
+    }
   }
   
   func hideEmitterLayerRenderModePicker() {
@@ -132,13 +131,13 @@ extension CAEmitterLayerControlsViewController {
       renderModePickerVisible = false
       relayoutTableViewCells()
       
-      UIView.animate(withDuration: 0.25, animations: {
-        [unowned self] in
-        self.renderModePicker.alpha = 0.0
-        }, completion: {
-          [unowned self] _ in
-          self.renderModePicker.isHidden = true
-          self.view.isUserInteractionEnabled = true
+      UIView.animate(withDuration: 0.25,
+                     animations: {
+                      self.renderModePicker.alpha = 0.0
+      },
+                     completion: { _ in
+                      self.renderModePicker.isHidden = true
+                      self.view.isUserInteractionEnabled = true
       })
     }
   }
