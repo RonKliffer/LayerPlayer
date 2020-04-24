@@ -53,10 +53,9 @@ extension CAScrollLayerViewController {
     scrollingViewLayer.scroll(to: newPoint)
     
     if sender.state == .ended {
-      UIView.animate(withDuration: 0.3, delay: 0, options: UIView.AnimationOptions(), animations: {
-        [unowned self] in
+      UIView.animate(withDuration: 0.3) {
         self.scrollingViewLayer.scroll(to: CGPoint.zero)
-        }, completion: nil)
+      }
     }
   }
   
