@@ -47,7 +47,7 @@ class CATransformLayerViewController: UIViewController {
   let sideLength = CGFloat(160.0)
   let reducedAlpha = CGFloat(0.8)
   
-  var transformLayer: CATransformLayer!
+  let transformLayer = CATransformLayer()
   let swipeMeTextLayer = CATextLayer()
   var redColor = UIColor.red
   var orangeColor = UIColor.orange
@@ -65,12 +65,8 @@ class CATransformLayerViewController: UIViewController {
   }
 }
 
-// MARK: - Quick reference
+// MARK: - Layer setup
 extension CATransformLayerViewController {
-  func sortOutletCollections() {
-    colorAlphaSwitches.sortUIViewsInPlaceByTag()
-  }
-  
   func setUpSwipeMeTextLayer() {
     swipeMeTextLayer.frame = CGRect(x: 0.0, y: sideLength / 4.0, width: sideLength, height: sideLength / 2.0)
     swipeMeTextLayer.string = "Swipe Me"
@@ -80,6 +76,47 @@ extension CATransformLayerViewController {
     let fontRef = CTFontCreateWithName(fontName, 24.0, nil)
     swipeMeTextLayer.font = fontRef
     swipeMeTextLayer.contentsScale = UIScreen.main.scale
+  }
+  
+  func sortOutletCollections() {
+    colorAlphaSwitches.sortUIViewsInPlaceByTag()
+  }
+  
+  func buildCube() {
+    var layer = sideLayer(color: redColor)
+    layer.addSublayer(swipeMeTextLayer)
+    transformLayer.addSublayer(layer)
+    
+    layer = sideLayer(color: orangeColor)
+    var transform = CATransform3DMakeTranslation(sideLength / 2.0, 0.0, sideLength / -2.0)
+    transform = CATransform3DRotate(transform, degreesToRadians(90.0), 0.0, 1.0, 0.0)
+    layer.transform = transform
+    transformLayer.addSublayer(layer)
+    
+    layer = sideLayer(color: yellowColor)
+    layer.transform = CATransform3DMakeTranslation(0.0, 0.0, -sideLength)
+    transformLayer.addSublayer(layer)
+    
+    layer = sideLayer(color: greenColor)
+    transform = CATransform3DMakeTranslation(sideLength / -2.0, 0.0, sideLength / -2.0)
+    transform = CATransform3DRotate(transform, degreesToRadians(90.0), 0.0, 1.0, 0.0)
+    layer.transform = transform
+    transformLayer.addSublayer(layer)
+    
+    layer = sideLayer(color: blueColor)
+    transform = CATransform3DMakeTranslation(0.0, sideLength / -2.0, sideLength / -2.0)
+    transform = CATransform3DRotate(transform, degreesToRadians(90.0), 1.0, 0.0, 0.0)
+    layer.transform = transform
+    transformLayer.addSublayer(layer)
+    
+    layer = sideLayer(color: purpleColor)
+    transform = CATransform3DMakeTranslation(0.0, sideLength / 2.0, sideLength / -2.0)
+    transform = CATransform3DRotate(transform, degreesToRadians(90.0), 1.0, 0.0, 0.0)
+    layer.transform = transform
+    transformLayer.addSublayer(layer)
+    
+    transformLayer.anchorPointZ = sideLength / -2.0
+    viewForTransformLayer.layer.addSublayer(transformLayer)
   }
 }
  
@@ -158,45 +195,6 @@ extension CATransformLayerViewController {
   
 // MARK: - Helpers
 extension CATransformLayerViewController {
-  func buildCube() {
-    transformLayer = CATransformLayer()
-    
-    var layer = sideLayer(color: redColor)
-    layer.addSublayer(swipeMeTextLayer)
-    transformLayer.addSublayer(layer)
-    
-    layer = sideLayer(color: orangeColor)
-    var transform = CATransform3DMakeTranslation(sideLength / 2.0, 0.0, sideLength / -2.0)
-    transform = CATransform3DRotate(transform, degreesToRadians(90.0), 0.0, 1.0, 0.0)
-    layer.transform = transform
-    transformLayer.addSublayer(layer)
-    
-    layer = sideLayer(color: yellowColor)
-    layer.transform = CATransform3DMakeTranslation(0.0, 0.0, -sideLength)
-    transformLayer.addSublayer(layer)
-    
-    layer = sideLayer(color: greenColor)
-    transform = CATransform3DMakeTranslation(sideLength / -2.0, 0.0, sideLength / -2.0)
-    transform = CATransform3DRotate(transform, degreesToRadians(90.0), 0.0, 1.0, 0.0)
-    layer.transform = transform
-    transformLayer.addSublayer(layer)
-    
-    layer = sideLayer(color: blueColor)
-    transform = CATransform3DMakeTranslation(0.0, sideLength / -2.0, sideLength / -2.0)
-    transform = CATransform3DRotate(transform, degreesToRadians(90.0), 1.0, 0.0, 0.0)
-    layer.transform = transform
-    transformLayer.addSublayer(layer)
-    
-    layer = sideLayer(color: purpleColor)
-    transform = CATransform3DMakeTranslation(0.0, sideLength / 2.0, sideLength / -2.0)
-    transform = CATransform3DRotate(transform, degreesToRadians(90.0), 1.0, 0.0, 0.0)
-    layer.transform = transform
-    transformLayer.addSublayer(layer)
-    
-    transformLayer.anchorPointZ = sideLength / -2.0
-    viewForTransformLayer.layer.addSublayer(transformLayer)
-  }
-  
   func sideLayer(color: UIColor) -> CALayer {
     let layer = CALayer()
     layer.frame = CGRect(origin: CGPoint.zero, size: CGSize(width: sideLength, height: sideLength))
@@ -216,5 +214,4 @@ extension CATransformLayerViewController {
     
     return color
   }
-  
 }
