@@ -60,7 +60,7 @@ class CAGradientLayerViewController: UIViewController {
   }
 }
 
-// MARK: - Quick reference
+// MARK: - Setup layer
 extension CAGradientLayerViewController {
   func sortOutletCollections() {
     colorSwitches.sortUIViewsInPlaceByTag()
@@ -73,7 +73,7 @@ extension CAGradientLayerViewController {
     gradientLayer.colors = colors
     gradientLayer.startPoint = CGPoint(x: 0.5, y: 0.0)
     gradientLayer.endPoint = CGPoint(x: 0.5, y: 1.0)
-    gradientLayer.locations = locations as [NSNumber]?
+    gradientLayer.locations = locations.map { NSNumber(value: $0) }
   }
   
   func setUpLocationSliders() {
