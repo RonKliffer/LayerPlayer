@@ -48,9 +48,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     UISwitch.appearance().tintColor = swiftOrangeColor
     UISlider.appearance().tintColor = swiftOrangeColor
     UISegmentedControl.appearance().tintColor = swiftOrangeColor
-
-    let size = CGSize(width: sideLength, height: sideLength)
-    UIImage.saveTileOfSize(size, name: fileName)
     
     return true
   }

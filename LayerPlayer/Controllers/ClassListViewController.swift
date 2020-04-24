@@ -36,7 +36,6 @@ class ClassListViewController: UITableViewController {
     ClassDescription(title: "AVPlayerLayer", description: "Display an AV player"),
     ClassDescription(title: "CAGradientLayer", description: "Apply a color gradient over the background"),
     ClassDescription(title: "CAReplicatorLayer", description: "Duplicate a source layer"),
-    ClassDescription(title: "CATiledLayer", description: "Asynchronously draw layer content in tiles"),
     ClassDescription(title: "CAShapeLayer", description: "Draw using scalable vector paths"),
     ClassDescription(title: "CATransformLayer", description: "Draw 3D structures"),
     ClassDescription(title: "CAEmitterLayer", description: "Render animated particles"),

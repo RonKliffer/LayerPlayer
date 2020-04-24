@@ -76,7 +76,6 @@
                         <segue destination="BtX-fE-OYN" kind="show" identifier="AVPlayerLayer" id="U8Y-9a-IdA"/>
                         <segue destination="P2L-gT-Nke" kind="show" identifier="CAGradientLayer" id="zUj-Dv-YHo"/>
                         <segue destination="cod-rO-d5I" kind="show" identifier="CAReplicatorLayer" id="S3e-kT-GIb"/>
-                        <segue destination="MGz-sG-qBG" kind="show" identifier="CATiledLayer" id="XlG-1m-4wd"/>
                         <segue destination="UgS-fU-VeG" kind="show" identifier="CAShapeLayer" id="4xP-MZ-cX4"/>
                         <segue destination="dLu-9Q-f13" kind="show" identifier="CATransformLayer" id="Fdy-Zw-E92"/>
                         <segue destination="4Z2-vF-d3B" kind="show" identifier="CAEmitterLayer" id="Mld-ob-2Y3"/>
@@ -145,16 +144,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RVP-qJ-74t" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2495" y="-469"/>
-        </scene>
-        <!--TiledLayerScene-->
-        <scene sceneID="QLd-3O-Nfu">
-            <objects>
-                <viewControllerPlaceholder storyboardName="TiledLayerScene" id="MGz-sG-qBG" sceneMemberID="viewController">
-                    <navigationItem key="navigationItem" id="tin-2C-D3q"/>
-                </viewControllerPlaceholder>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="RSo-YZ-oUT" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2489" y="-318"/>
         </scene>
         <!--ShapeLayerScene-->
         <scene sceneID="CxR-lB-2IN">

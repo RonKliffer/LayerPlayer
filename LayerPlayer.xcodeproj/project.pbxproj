@@ -15,13 +15,11 @@
 		3F55CD931F431C2C0083073D /* LayerScene.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3F55CD921F431C2C0083073D /* LayerScene.storyboard */; };
 		3F55CD951F431C690083073D /* TextLayerScene.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3F55CD941F431C690083073D /* TextLayerScene.storyboard */; };
 		3F55CD971F431CBC0083073D /* PlayerLayerScene.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3F55CD961F431CBC0083073D /* PlayerLayerScene.storyboard */; };
-		3F55CD991F431CE00083073D /* TiledLayerScene.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3F55CD981F431CE00083073D /* TiledLayerScene.storyboard */; };
 		3F55CD9B1F431D7C0083073D /* EmitterLayer.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3F55CD9A1F431D7C0083073D /* EmitterLayer.storyboard */; };
 		D236BF631BD807D600CD3C4C /* Array+SortUIViewsInPlaceByTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = D236BF621BD807D600CD3C4C /* Array+SortUIViewsInPlaceByTag.swift */; };
 		D247913C1A36BC6C007AC991 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D24791371A36BC6C007AC991 /* AppDelegate.swift */; };
 		D247913D1A36BC6C007AC991 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D24791381A36BC6C007AC991 /* Images.xcassets */; };
 		D247913E1A36BC6C007AC991 /* colorfulStreak.m4v in Resources */ = {isa = PBXBuildFile; fileRef = D24791391A36BC6C007AC991 /* colorfulStreak.m4v */; };
-		D247913F1A36BC6C007AC991 /* UIImage+TileCutter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D247913A1A36BC6C007AC991 /* UIImage+TileCutter.swift */; };
 		D24791501A36BC80007AC991 /* ClassListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D24791401A36BC80007AC991 /* ClassListViewController.swift */; };
 		D24791511A36BC80007AC991 /* CALayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D24791411A36BC80007AC991 /* CALayerViewController.swift */; };
 		D24791521A36BC80007AC991 /* CALayerControlsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D24791421A36BC80007AC991 /* CALayerControlsViewController.swift */; };
@@ -31,17 +29,12 @@
 		D24791561A36BC80007AC991 /* CAGradientLayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D24791461A36BC80007AC991 /* CAGradientLayerViewController.swift */; };
 		D24791571A36BC80007AC991 /* CAReplicatorLayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D24791471A36BC80007AC991 /* CAReplicatorLayerViewController.swift */; };
 		D24791581A36BC80007AC991 /* CAShapeLayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D24791481A36BC80007AC991 /* CAShapeLayerViewController.swift */; };
-		D24791591A36BC80007AC991 /* CATiledLayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D24791491A36BC80007AC991 /* CATiledLayerViewController.swift */; };
-		D247915A1A36BC80007AC991 /* CATiledImageLayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D247914A1A36BC80007AC991 /* CATiledImageLayerViewController.swift */; };
 		D247915C1A36BC80007AC991 /* CATransformLayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D247914D1A36BC80007AC991 /* CATransformLayerViewController.swift */; };
 		D247915D1A36BC80007AC991 /* CAEmitterLayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D247914E1A36BC80007AC991 /* CAEmitterLayerViewController.swift */; };
 		D247915E1A36BC80007AC991 /* CAEmitterLayerControlsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D247914F1A36BC80007AC991 /* CAEmitterLayerControlsViewController.swift */; };
 		D24791651A36BC94007AC991 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D247915F1A36BC94007AC991 /* Main.storyboard */; };
 		D24791661A36BC94007AC991 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = D24791601A36BC94007AC991 /* LaunchScreen.xib */; };
 		D24791671A36BC94007AC991 /* ScrollingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D24791611A36BC94007AC991 /* ScrollingView.swift */; };
-		D24791681A36BC94007AC991 /* TilingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D24791621A36BC94007AC991 /* TilingView.swift */; };
-		D24791691A36BC94007AC991 /* TiledLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D24791631A36BC94007AC991 /* TiledLayer.swift */; };
-		D247916A1A36BC94007AC991 /* TilingViewForImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D24791641A36BC94007AC991 /* TilingViewForImage.swift */; };
 		D247916C1A36BC9C007AC991 /* TrackBall.swift in Sources */ = {isa = PBXBuildFile; fileRef = D247916B1A36BC9C007AC991 /* TrackBall.swift */; };
 		D2FECA321BDA23E100D9B63A /* UITableViewCell+ZeroLayoutMargins.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2FECA311BDA23E100D9B63A /* UITableViewCell+ZeroLayoutMargins.swift */; };
 		D2FECA361BDA4C2C00D9B63A /* LayerPlayer.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D2FECA351BDA4C2C00D9B63A /* LayerPlayer.ttf */; };
@@ -57,7 +50,6 @@
 		3F55CD921F431C2C0083073D /* LayerScene.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LayerScene.storyboard; sourceTree = "<group>"; };
 		3F55CD941F431C690083073D /* TextLayerScene.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TextLayerScene.storyboard; sourceTree = "<group>"; };
 		3F55CD961F431CBC0083073D /* PlayerLayerScene.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PlayerLayerScene.storyboard; sourceTree = "<group>"; };
-		3F55CD981F431CE00083073D /* TiledLayerScene.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TiledLayerScene.storyboard; sourceTree = "<group>"; };
 		3F55CD9A1F431D7C0083073D /* EmitterLayer.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = EmitterLayer.storyboard; sourceTree = "<group>"; };
 		D236BF621BD807D600CD3C4C /* Array+SortUIViewsInPlaceByTag.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+SortUIViewsInPlaceByTag.swift"; sourceTree = "<group>"; };
 		D247910F1A36BB95007AC991 /* LayerPlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LayerPlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -65,7 +57,6 @@
 		D24791371A36BC6C007AC991 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D24791381A36BC6C007AC991 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		D24791391A36BC6C007AC991 /* colorfulStreak.m4v */ = {isa = PBXFileReference; lastKnownFileType = file; path = colorfulStreak.m4v; sourceTree = "<group>"; };
-		D247913A1A36BC6C007AC991 /* UIImage+TileCutter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+TileCutter.swift"; sourceTree = "<group>"; };
 		D24791401A36BC80007AC991 /* ClassListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClassListViewController.swift; sourceTree = "<group>"; };
 		D24791411A36BC80007AC991 /* CALayerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CALayerViewController.swift; sourceTree = "<group>"; };
 		D24791421A36BC80007AC991 /* CALayerControlsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CALayerControlsViewController.swift; sourceTree = "<group>"; };
@@ -75,17 +66,12 @@
 		D24791461A36BC80007AC991 /* CAGradientLayerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CAGradientLayerViewController.swift; sourceTree = "<group>"; };
 		D24791471A36BC80007AC991 /* CAReplicatorLayerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CAReplicatorLayerViewController.swift; sourceTree = "<group>"; };
 		D24791481A36BC80007AC991 /* CAShapeLayerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CAShapeLayerViewController.swift; sourceTree = "<group>"; };
-		D24791491A36BC80007AC991 /* CATiledLayerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CATiledLayerViewController.swift; sourceTree = "<group>"; };
-		D247914A1A36BC80007AC991 /* CATiledImageLayerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CATiledImageLayerViewController.swift; sourceTree = "<group>"; };
 		D247914D1A36BC80007AC991 /* CATransformLayerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CATransformLayerViewController.swift; sourceTree = "<group>"; };
 		D247914E1A36BC80007AC991 /* CAEmitterLayerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CAEmitterLayerViewController.swift; sourceTree = "<group>"; };
 		D247914F1A36BC80007AC991 /* CAEmitterLayerControlsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CAEmitterLayerControlsViewController.swift; sourceTree = "<group>"; };
 		D247915F1A36BC94007AC991 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		D24791601A36BC94007AC991 /* LaunchScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LaunchScreen.xib; sourceTree = "<group>"; };
 		D24791611A36BC94007AC991 /* ScrollingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScrollingView.swift; sourceTree = "<group>"; };
-		D24791621A36BC94007AC991 /* TilingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TilingView.swift; sourceTree = "<group>"; };
-		D24791631A36BC94007AC991 /* TiledLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TiledLayer.swift; sourceTree = "<group>"; };
-		D24791641A36BC94007AC991 /* TilingViewForImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TilingViewForImage.swift; sourceTree = "<group>"; };
 		D247916B1A36BC9C007AC991 /* TrackBall.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackBall.swift; sourceTree = "<group>"; };
 		D2FECA311BDA23E100D9B63A /* UITableViewCell+ZeroLayoutMargins.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+ZeroLayoutMargins.swift"; sourceTree = "<group>"; };
 		D2FECA351BDA4C2C00D9B63A /* LayerPlayer.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = LayerPlayer.ttf; sourceTree = "<group>"; };
@@ -114,7 +100,6 @@
 				3F55CD921F431C2C0083073D /* LayerScene.storyboard */,
 				3F55CD941F431C690083073D /* TextLayerScene.storyboard */,
 				3F55CD961F431CBC0083073D /* PlayerLayerScene.storyboard */,
-				3F55CD981F431CE00083073D /* TiledLayerScene.storyboard */,
 				3F55CD9A1F431D7C0083073D /* EmitterLayer.storyboard */,
 			);
 			path = Scenes;
@@ -157,7 +142,6 @@
 				D24791381A36BC6C007AC991 /* Images.xcassets */,
 				D2FECA351BDA4C2C00D9B63A /* LayerPlayer.ttf */,
 				D236BF621BD807D600CD3C4C /* Array+SortUIViewsInPlaceByTag.swift */,
-				D247913A1A36BC6C007AC991 /* UIImage+TileCutter.swift */,
 				D2FECA311BDA23E100D9B63A /* UITableViewCell+ZeroLayoutMargins.swift */,
 			);
 			path = "Supporting Files";
@@ -175,8 +159,6 @@
 				D24791431A36BC80007AC991 /* AVPlayerLayerViewController.swift */,
 				D24791461A36BC80007AC991 /* CAGradientLayerViewController.swift */,
 				D24791471A36BC80007AC991 /* CAReplicatorLayerViewController.swift */,
-				D24791491A36BC80007AC991 /* CATiledLayerViewController.swift */,
-				D247914A1A36BC80007AC991 /* CATiledImageLayerViewController.swift */,
 				D24791481A36BC80007AC991 /* CAShapeLayerViewController.swift */,
 				D247914D1A36BC80007AC991 /* CATransformLayerViewController.swift */,
 				D247914E1A36BC80007AC991 /* CAEmitterLayerViewController.swift */,
@@ -192,9 +174,6 @@
 				D247915F1A36BC94007AC991 /* Main.storyboard */,
 				D24791601A36BC94007AC991 /* LaunchScreen.xib */,
 				D24791611A36BC94007AC991 /* ScrollingView.swift */,
-				D24791621A36BC94007AC991 /* TilingView.swift */,
-				D24791631A36BC94007AC991 /* TiledLayer.swift */,
-				D24791641A36BC94007AC991 /* TilingViewForImage.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -279,7 +258,6 @@
 				D247913E1A36BC6C007AC991 /* colorfulStreak.m4v in Resources */,
 				3F55CD951F431C690083073D /* TextLayerScene.storyboard in Resources */,
 				3F55CD891F431A510083073D /* ScrollLayerScene.storyboard in Resources */,
-				3F55CD991F431CE00083073D /* TiledLayerScene.storyboard in Resources */,
 				3F55CD8B1F431B090083073D /* ReplicatorLayerScene.storyboard in Resources */,
 				3F55CD911F431BF50083073D /* ShapeLayerScene.storyboard in Resources */,
 				3F55CD871F43199B0083073D /* GradientLayerScene.storyboard in Resources */,
@@ -294,16 +272,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				D24791521A36BC80007AC991 /* CALayerControlsViewController.swift in Sources */,
-				D247915A1A36BC80007AC991 /* CATiledImageLayerViewController.swift in Sources */,
 				D247915E1A36BC80007AC991 /* CAEmitterLayerControlsViewController.swift in Sources */,
 				D24791501A36BC80007AC991 /* ClassListViewController.swift in Sources */,
 				D247916C1A36BC9C007AC991 /* TrackBall.swift in Sources */,
 				D247915D1A36BC80007AC991 /* CAEmitterLayerViewController.swift in Sources */,
-				D247913F1A36BC6C007AC991 /* UIImage+TileCutter.swift in Sources */,
-				D24791691A36BC94007AC991 /* TiledLayer.swift in Sources */,
 				D24791561A36BC80007AC991 /* CAGradientLayerViewController.swift in Sources */,
 				D24791581A36BC80007AC991 /* CAShapeLayerViewController.swift in Sources */,
-				D24791681A36BC94007AC991 /* TilingView.swift in Sources */,
 				D24791511A36BC80007AC991 /* CALayerViewController.swift in Sources */,
 				D24791531A36BC80007AC991 /* AVPlayerLayerViewController.swift in Sources */,
 				D2FECA321BDA23E100D9B63A /* UITableViewCell+ZeroLayoutMargins.swift in Sources */,
@@ -313,8 +287,6 @@
 				D24791551A36BC80007AC991 /* CATextLayerViewController.swift in Sources */,
 				D247915C1A36BC80007AC991 /* CATransformLayerViewController.swift in Sources */,
 				E1FB37792453110C001C639B /* ClassDescription.swift in Sources */,
-				D247916A1A36BC94007AC991 /* TilingViewForImage.swift in Sources */,
-				D24791591A36BC80007AC991 /* CATiledLayerViewController.swift in Sources */,
 				D236BF631BD807D600CD3C4C /* Array+SortUIViewsInPlaceByTag.swift in Sources */,
 				D24791571A36BC80007AC991 /* CAReplicatorLayerViewController.swift in Sources */,
 			);
