@@ -59,11 +59,10 @@ class CAShapeLayerViewController: UIViewController {
     setUpOpenPath()
     setUpClosedPath()
     setUpShapeLayer()
-    viewForShapeLayer.layer.addSublayer(shapeLayer)
   }
 }
   
-// MARK: - Quick reference
+// MARK: - Layer setup
 extension CAShapeLayerViewController {
   func setUpOpenPath() {
     openPath.move(to: CGPoint(x: 30, y: 196))
@@ -90,6 +89,7 @@ extension CAShapeLayerViewController {
     shapeLayer.lineWidth = CGFloat(lineWidthSlider.value)
     shapeLayer.miterLimit = 4.0
     shapeLayer.strokeColor = color.cgColor
+    viewForShapeLayer.layer.addSublayer(shapeLayer)
   }
 }
   
@@ -148,10 +148,10 @@ extension CAShapeLayerViewController {
     shapeLayer.fillColor = color.cgColor
     
     let fillRule: CAShapeLayerFillRule
-    if sender.selectedSegmentIndex != FillRule.nonZero.rawValue {
-      fillRule = .evenOdd
-    } else {
+    if sender.selectedSegmentIndex == FillRule.nonZero.rawValue {
       fillRule = .nonZero
+    } else {
+      fillRule = .evenOdd
     }
     
     shapeLayer.fillRule = fillRule
