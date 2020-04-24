@@ -42,7 +42,6 @@ class CAReplicatorLayerViewController: UIViewController {
   @IBOutlet weak var offsetAlphaSwitch: UISwitch!
   
   let lengthMultiplier: CGFloat = 3.0
-  let whiteColor = UIColor.white.cgColor
   let replicatorLayer = CAReplicatorLayer()
   let instanceLayer = CALayer()
   let fadeAnimation = CABasicAnimation(keyPath: "opacity")
@@ -50,9 +49,7 @@ class CAReplicatorLayerViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     setUpReplicatorLayer()
-    viewForReplicatorLayer.layer.addSublayer(replicatorLayer)
     setUpInstanceLayer()
-    replicatorLayer.addSublayer(instanceLayer)
     setUpLayerFadeAnimation()
     instanceDelaySliderChanged(instanceDelaySlider)
     updateLayerSizeSliderValueLabel()
@@ -67,27 +64,30 @@ class CAReplicatorLayerViewController: UIViewController {
   }
 }
 
-// MARK: - Quick reference
+// MARK: - Layer setup
 extension CAReplicatorLayerViewController {
   func setUpReplicatorLayer() {
     replicatorLayer.frame = viewForReplicatorLayer.bounds
     let count = instanceCountSlider.value
     replicatorLayer.instanceCount = Int(count)
+    replicatorLayer.instanceDelay = CFTimeInterval(instanceDelaySlider.value / Float(count))
     replicatorLayer.preservesDepth = false
-    replicatorLayer.instanceColor = whiteColor
+    replicatorLayer.instanceColor = UIColor.white.cgColor
     replicatorLayer.instanceRedOffset = offsetValueForSwitch(offsetRedSwitch)
     replicatorLayer.instanceGreenOffset = offsetValueForSwitch(offsetGreenSwitch)
     replicatorLayer.instanceBlueOffset = offsetValueForSwitch(offsetBlueSwitch)
     replicatorLayer.instanceAlphaOffset = offsetValueForSwitch(offsetAlphaSwitch)
     let angle = Float(Double.pi * 2.0) / count
     replicatorLayer.instanceTransform = CATransform3DMakeRotation(CGFloat(angle), 0.0, 0.0, 1.0)
+    viewForReplicatorLayer.layer.addSublayer(replicatorLayer)
   }
   
   func setUpInstanceLayer() {
     let layerWidth = CGFloat(layerSizeSlider.value)
     let midX = viewForReplicatorLayer.bounds.midX - layerWidth / 2.0
     instanceLayer.frame = CGRect(x: midX, y: 0.0, width: layerWidth, height: layerWidth * lengthMultiplier)
-    instanceLayer.backgroundColor = whiteColor
+    instanceLayer.backgroundColor = UIColor.white.cgColor
+    replicatorLayer.addSublayer(instanceLayer)
   }
   
   func setUpLayerFadeAnimation() {
